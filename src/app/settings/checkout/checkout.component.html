@@ -1,0 +1,115 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>Checkout</ion-title>
+    <ion-back-button defaultHref="/home/cart" slot="start"></ion-back-button>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <ion-title class="ion-padding" style="box-shadow: inset">
+    Shipping address
+  </ion-title>
+
+  <!-- address details -->
+  <div>
+    <ion-card>
+      <ion-card-header class="ion-no-padding ion-padding-horizontal">
+        <ion-toolbar>
+          <ion-card-title>Sandesh Shingare </ion-card-title>
+          <!-- <ion-card-subtitle>Card Subtitle</ion-card-subtitle> -->
+          <ion-button
+            size="small"
+            [id]="'address-modal'"
+            slot="end"
+            fill="clear"
+            color="danger"
+            >Change</ion-button
+          >
+        </ion-toolbar>
+      </ion-card-header>
+
+      <ion-card-content>
+        {{ selectedAddress?.street }}, {{ selectedAddress?.addressLine2 }},
+        {{ selectedAddress?.city }},<br />
+        {{ selectedAddress?.state }}, {{ selectedAddress?.pin }}
+      </ion-card-content>
+    </ion-card>
+  </div>
+
+  <!-- change address modal -->
+
+  <ion-modal
+    #change
+    [trigger]="'address-modal'"
+    [initialBreakpoint]="1"
+    [breakpoints]="[0, 1]"
+    class="ion-no-padding"
+  >
+    <ng-template>
+      <div class="block">
+        <ion-title class="ion-padding" style="box-shadow: inset">
+          Select Shipping Address
+        </ion-title>
+        <ion-list lines="inset" *ngIf="listOfAddress" class="ion-no-padding">
+          <ion-radio-group value="start">
+            <ion-item *ngFor="let address of listOfAddress; let index = index">
+              <ion-radio
+                checked="true"
+                (click)="addressSelected($event, address)"
+                [value]="address"
+                [ariaSelected]="true"
+                labelPlacement="start"
+              >
+                {{ address.street }}, {{ address.addressLine2 }},
+                {{ address.city }},<br />
+                {{ address.state }}, {{ address.pin }}
+              </ion-radio>
+
+              <hr />
+            </ion-item>
+          </ion-radio-group>
+        </ion-list>
+        <!-- add new address -->
+        <hr />
+        <p style="text-align: center">OR</p>
+        <hr />
+        <ion-button
+          routerLink="/setting/address"
+          expand="block"
+          class="ion-margin-bottom"
+          (click)="change.dismiss()"
+          >Add Shipping Address</ion-button
+        >
+      </div>
+    </ng-template>
+  </ion-modal>
+
+  <div class="order-ftr">
+    <ion-list>
+      <ion-item>
+        <ion-label color="medium"> Order: </ion-label>
+        <ion-label slot="end"> {{ orderPrice | currency : "INR" }}</ion-label>
+      </ion-item>
+      <ion-item>
+        <ion-label color="medium"> Delivery </ion-label>
+        <ion-label slot="end"> {{ deliveryFee | currency : "INR" }}</ion-label>
+      </ion-item>
+      <ion-item>
+        <ion-label color="medium"> Summary: </ion-label>
+        <ion-label slot="end"> {{ summaryTotal | currency : "INR" }}</ion-label>
+      </ion-item>
+    </ion-list>
+  </div>
+
+  <ion-footer class="ftr">
+    <ion-toolbar>
+      <ion-button
+        expand="block"
+        color="warning"
+        class="ion-padding-horizontal"
+        routerLink="/setting/payment"
+        >Proceed to payment ({{ summaryTotal | currency : "INR" }})</ion-button
+      >
+    </ion-toolbar>
+  </ion-footer>
+</ion-content>

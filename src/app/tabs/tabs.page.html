@@ -1,0 +1,28 @@
+<ion-tabs>
+  <ion-tab-bar slot="bottom">
+    <ion-tab-button (click)="goto('home/products')">
+      <ion-icon name="storefront-outline"></ion-icon>
+      <ion-label>Home</ion-label>
+    </ion-tab-button>
+
+    <!-- <ion-tab-button (click)="goto('home/products')">
+      <ion-icon name="grid-outline"></ion-icon>
+      <ion-label>Categories</ion-label>
+    </ion-tab-button> -->
+
+    <ion-tab-button (click)="goto('home/cart')">
+      <ion-icon aria-hidden="true" name="cart"></ion-icon>
+      <ion-label>Cart</ion-label>
+    </ion-tab-button>
+
+    <!-- <ion-tab-button (click)="goto('home/products')">
+      <ion-icon name="heart-outline"></ion-icon>
+      <ion-label>Favourites</ion-label>
+    </ion-tab-button> -->
+
+    <ion-tab-button (click)="goto('auth/login')">
+      <ion-icon aria-hidden="true" name="person-circle-outline"></ion-icon>
+      <ion-label>Profile</ion-label>
+    </ion-tab-button>
+  </ion-tab-bar>
+</ion-tabs>

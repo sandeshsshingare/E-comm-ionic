@@ -1,0 +1,61 @@
+
+<ion-header [translucent]="true">
+  <ion-toolbar>
+    <ion-back-button defaultHref="/home/products" slot="start"></ion-back-button>
+    <ion-title>Login</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content class="ion-padding">
+  <form #loginForm="ngForm" class="" (ngSubmit)="loginFun(loginForm.value)">
+    <div class="ion-padding-top">
+      <ion-input
+        label="Email"
+        label-placement="floating"
+        fill="outline"
+        name="email"
+        class=""
+        required
+        autofocus="true"
+        [clearInput]="true"
+        [errorText]="'Email is required field'"
+        ngModel
+        placeholder="Enter email"
+      ></ion-input>
+    </div>
+
+    <div class="ion-padding-top">
+      <ion-input
+        label="Password"
+        label-placement="floating"
+        fill="outline"
+        name="password"
+        [errorText]="'Password is required field'"
+        class=""
+        required
+        ngModel
+        placeholder="Enter password"
+      [clearInput]="true"
+
+      ></ion-input>
+    </div>
+
+    <div class="ion-padding-top">
+      <ion-button  [disabled]="loginForm.invalid" expand="block" type="submit" class="ion-margin-top">
+        Login <ion-icon name="log-in-outline" slot="end"></ion-icon>
+      </ion-button>
+
+      <ion-button
+        expand="block"
+        type="submit"
+        class="ion-margin-top"
+        color="secondary"
+        type="button"
+        [routerLink]="['/auth/register']"
+      >
+        Create account
+        <ion-icon name="person-circle-outline" slot="end"></ion-icon>
+      </ion-button>
+    </div>
+  </form>
+</ion-content>

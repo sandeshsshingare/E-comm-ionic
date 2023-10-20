@@ -1,0 +1,125 @@
+<ion-header [translucent]="true">
+  <ion-toolbar>
+    <ion-back-button
+      defaultHref="/setting/profile"
+      slot="start"
+    ></ion-back-button>
+    <ion-title>My addresses</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content class="ion-padding-bottom ion-margin-bottom" *ngIf="isAllLoaded">
+
+
+  <div>
+    <!-- Add address modal -->
+    <ion-button id="open-modal" color="success" expand="block" class="ion-margin-horizontal ion-margin-bottom" >Add address</ion-button>
+    
+
+
+    <ion-modal #modal trigger="open-modal" [enterAnimation]="enterAnimation" [leaveAnimation]="leaveAnimation">
+      <ng-template>
+      
+        <ion-content>
+          <ion-toolbar>
+            <ion-title><span>Add address</span></ion-title>
+            <ion-buttons slot="end">
+              <ion-button color="light" (click)="modal.dismiss()">Close</ion-button>
+            </ion-buttons>
+          </ion-toolbar>
+          <form class="ion-margin" #addAddressForm="ngForm" (ngSubmit)="addAddress(addAddressForm.value)" >
+
+            <ion-input label="Street" [errorText]="'Street is required field!!'" name="street" ngModel required label-placement="floating" class="ion-margin-vertical" fill="solid" placeholder="Enter street"></ion-input>
+  
+            <ion-input label="Address Line 2" [errorText]="'Address line 2 is required field!!'" required name="addressLine2" ngModel label-placement="floating" class="ion-margin-bottom" fill="solid" placeholder="Enter address line 2"></ion-input>
+            <ion-input label="City" [errorText]="'City is required field!!'" required name="city" ngModel label-placement="floating" class="ion-margin-bottom" fill="solid" placeholder="Enter city"></ion-input>
+            <ion-input label="State" [errorText]="'State is required field!!'" required name="state" ngModel label-placement="floating" class="ion-margin-bottom" fill="solid" placeholder="Enter state"></ion-input>
+            <ion-input label="PIN" [errorText]="'PIN is required and must contain 6 digits!!'" minlength="6" maxlength="6" required name="pin" ngModel label-placement="floating" class="ion-margin-bottom" fill="solid" placeholder="Enter pin"></ion-input>
+  
+            <ion-button [disabled]="addAddressForm.invalid" expand="block" type="submit" (click)="modal.dismiss()" >Add <ion-icon name="add-outline" slot="end"></ion-icon></ion-button>
+          </form>
+        </ion-content>
+      </ng-template>
+    </ion-modal>
+
+
+
+
+  </div>
+
+
+
+  <ion-list class="ion-margin-bottom ion-padding-bottom" >
+    <ion-title *ngIf="addresses.length===0">
+      <p>No address present!!!</p>
+    </ion-title>
+    <ion-item *ngFor="let address of addresses;let index = index" >
+      
+      <ion-label  >
+        <ion-toolbar>
+          <ion-title slot="start"  class="ion-no-padding ion-padding-bottom ">{{"Address no.  " + (index+1)}}</ion-title>
+          <ion-button fill="clear" slot="end" class="ion-no-padding ion-margin-start" [id]="'open-modal'+index" >Edit <ion-icon slot="start" name="pencil-outline"></ion-icon></ion-button>
+          
+          <ion-modal #modal [trigger]="'open-modal'+index" [enterAnimation]="enterAnimation" [leaveAnimation]="leaveAnimation">
+            <ng-template>
+            
+              <ion-content>
+                <ion-toolbar>
+                  <ion-title><span>Update address</span></ion-title>
+                  <ion-buttons slot="end">
+                    <ion-button color="light" (click)="modal.dismiss()">Close</ion-button>
+                  </ion-buttons>
+                </ion-toolbar>
+                <form class="ion-margin" #updateAddressForm="ngForm" (ngSubmit)="updateAddress(updateAddressForm.value, address._id)" >
+      
+                  <ion-input label="Street" [errorText]="'Street is required field!!'" name="street" [(ngModel)]="address.street" required label-placement="floating" class="ion-margin-vertical" fill="solid" placeholder="Enter street"></ion-input>
+        
+                  <ion-input label="Address Line 2" [errorText]="'Address line 2 is required field!!'" required name="addressLine2" [(ngModel)]="address.addressLine2" label-placement="floating" class="ion-margin-bottom" fill="solid" placeholder="Enter address line 2"></ion-input>
+                  <ion-input label="City" [errorText]="'City is required field!!'" required name="city" [(ngModel)]="address.city" label-placement="floating" class="ion-margin-bottom" fill="solid" placeholder="Enter city"></ion-input>
+                  <ion-input label="State" [errorText]="'State is required field!!'" required name="state" [(ngModel)]="address.state" label-placement="floating" class="ion-margin-bottom" fill="solid" placeholder="Enter state"></ion-input>
+                  <ion-input label="PIN" [errorText]="'PIN is required and must contain 6 digits!!'" minlength="6" maxlength="6" required name="pin" [(ngModel)]="address.pin" label-placement="floating" class="ion-margin-bottom" fill="solid" placeholder="Enter pin"></ion-input>
+        
+                  <ion-button [disabled]="updateAddressForm.invalid" expand="block" type="submit" (click)="modal.dismiss()"  >Update <ion-icon name="pencil-outline" slot="end"></ion-icon></ion-button>
+                </form>
+              </ion-content>
+            </ng-template>
+          </ion-modal>
+          <ion-button fill="clear" slot="end" [id]="'present-alert'+index" style="color: red;" color="red" class="ion-margin-end"  >Delete <ion-icon slot="start" name="trash-outline"></ion-icon></ion-button>
+          <ion-alert [trigger]="'present-alert'+index" class="custom-alert" header="Are you sure?" [buttons]="alertButtons" (didDismiss)="setResult($event, address._id)"></ion-alert>
+          <!-- <ng-container class="container">
+            <ion-action-sheet
+              [trigger]="'open-action-sheet'+index"
+              header="Delete Address"
+              subHeader="Yon can't revert this action."
+              [buttons]="actionSheetButtons"
+              (didDismiss)="logResult($event)"
+            ></ion-action-sheet>
+          </ng-container> -->
+      </ion-toolbar>
+      <h3>Street</h3>
+      <p class="ion-padding-bottom">{{address.street}}</p>
+
+      <h3>Address Line 2</h3>
+      <p class="ion-padding-bottom">{{address.addressLine2}}</p>
+
+      <h3>City</h3>
+      <p class="ion-padding-bottom">{{address.city}}</p>
+
+      <h3>State</h3>
+      <p class="ion-padding-bottom">{{address.state}}</p>
+
+      <h3>PIN</h3>
+      <p >{{address.pin}}</p>
+    </ion-label>
+
+  <hr>
+    
+  </ion-item>
+</ion-list>
+
+
+
+
+
+
+</ion-content>

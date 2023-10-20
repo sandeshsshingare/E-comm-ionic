@@ -1,0 +1,25 @@
+.ftr{
+    position: fixed;
+    
+    bottom: 8%;
+    left: 0;
+    right: 0;
+}
+
+.order-ftr{
+    position: fixed;
+    bottom: 16%;
+    left: 0;
+    right: 0    ;
+}
+
+.block {
+    width: 100%;
+    height: 300px;
+    margin-top: 50px;
+
+  }
+  
+  ion-modal {
+    --height: auto;
+  }

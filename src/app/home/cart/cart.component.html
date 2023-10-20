@@ -1,0 +1,156 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>Cart</ion-title>
+    <ion-back-button
+      defaultHref="/home/products"
+      slot="start"
+    ></ion-back-button>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <div *ngIf="loaded">
+    <div>
+      <ion-list
+        class="ion-margin"
+        *ngFor="let item of cartArray; let index = index"
+      >
+        <ion-item >
+          <ion-thumbnail slot="start">
+            <img alt="Silhouette of mountains" [src]="item?.images[0].url"  />
+          </ion-thumbnail>
+
+          <ion-grid class="ion-no-padding">
+            <ion-row>
+             
+              <ion-col size="10">
+                <h4 >{{item.name}}</h4>
+
+                <!-- <p>color:gray</p> -->
+                <div class="" style="display: flex">
+                  <ion-button
+                  (click)="qtyChange(item, 'decrease')"
+                    fill="clear"
+                    style="
+                      color: white;
+                      background-color: dimgrey;
+                      border-radius: 50%;
+                      height: 35px;
+                      width: 35px;
+                    "
+                  >
+                    <svg
+                      xmlns="http://www.w3.org/2000/svg"
+                      width="20"
+                      height="20"
+                      fill="currentColor"
+                      class="bi bi-dash-lg"
+                      viewBox="0 0 16 16"
+                    >
+                      <path
+                        fill-rule="evenodd"
+                        d="M2 8a.5.5 0 0 1 .5-.5h11a.5.5 0 0 1 0 1h-11A.5.5 0 0 1 2 8Z"
+                      />
+                    </svg>
+                  </ion-button>
+                  <h5 class="ion-margin">{{item.qty}}</h5>
+                  <ion-button
+                  (click)="qtyChange(item, 'increase')"
+                    fill="clear"
+                    style="
+                      color: white;
+                      background-color: dimgrey;
+                      border-radius: 50%;
+                      height: 35px;
+                      width: 35px;
+                    "
+                  >
+                    <svg
+                      xmlns="http://www.w3.org/2000/svg"
+                      width="30"
+                      height="30"
+                      fill="currentColor"
+                      class="bi bi-plus-lg"
+                      viewBox="0 0 16 16"
+                    >
+                      <path
+                        fill-rule="evenodd"
+                        d="M8 2a.5.5 0 0 1 .5.5v5h5a.5.5 0 0 1 0 1h-5v5a.5.5 0 0 1-1 0v-5h-5a.5.5 0 0 1 0-1h5v-5A.5.5 0 0 1 8 2Z"
+                      />
+                    </svg>
+                  </ion-button>
+                </div>
+              </ion-col>
+              <ion-col
+                style="display: flex; justify-content: end"
+                class="ion-no-padding"
+                size="2"
+              >
+                <div>
+                  <div style="display: flex; justify-content: end">
+                    <div>
+                      <ion-button [id]="'auto-trigger'+index" size="small"><ion-icon size="small" name="ellipsis-vertical-outline"></ion-icon></ion-button>
+                      <ion-popover [trigger]="'auto-trigger'+index" size="auto" side="left" class="ion-no-padding" alignment="start">
+                        <ng-template>
+                          <ion-content class="ion-padding " >
+                            <!-- <ion-button size="small" fill="clear">Add to</ion-button> -->
+                            <ion-button (click)="removeFromCart(item)" size="small" fill="clear" class="ion-no-padding"><small>Remove</small> </ion-button>
+
+                          </ion-content>
+
+                        </ng-template>
+                      </ion-popover>
+                    </div>
+                  </div>
+                  <p style="display: flex ion-margin-top">
+                    <span *ngIf="!item.totalPrice">{{ item?.price | currency : "INR" }}</span> <span *ngIf="item.totalPrice">{{ item?.totalPrice | currency : "INR" }}</span>
+                  </p>
+                </div>
+              </ion-col>
+            </ion-row>
+          </ion-grid>
+        </ion-item>
+      </ion-list>
+    </div>
+  </div>
+
+  <ion-list *ngIf="!loaded">
+    <ion-list-header>
+      <ion-skeleton-text
+        [animated]="true"
+        style="width: 80px"
+      ></ion-skeleton-text>
+    </ion-list-header>
+    <ion-item>
+      <ion-thumbnail slot="start">
+        <ion-skeleton-text [animated]="true"></ion-skeleton-text>
+      </ion-thumbnail>
+      <ion-label>
+        <h3>
+          <ion-skeleton-text
+            [animated]="true"
+            style="width: 80%"
+          ></ion-skeleton-text>
+        </h3>
+        <p>
+          <ion-skeleton-text
+            [animated]="true"
+            style="width: 60%"
+          ></ion-skeleton-text>
+        </p>
+        <p>
+          <ion-skeleton-text
+            [animated]="true"
+            style="width: 30%"
+          ></ion-skeleton-text>
+        </p>
+      </ion-label>
+    </ion-item>
+  </ion-list>
+  <ion-footer class="fotter-button">
+    <ion-toolbar>
+      <ion-button expand="block" class="ion-padding-horizontal" (click)="proceedToCheckout()" >Proceed to checkout</ion-button>
+    </ion-toolbar>
+  </ion-footer>
+  
+</ion-content>

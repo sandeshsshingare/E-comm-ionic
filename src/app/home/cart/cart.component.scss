@@ -1,0 +1,17 @@
+ion-popover {
+    --width: 80px;
+  }
+  
+  .pop {
+    align-items: center;
+    display: flex;
+    flex-direction: column;
+    padding: 80px;
+  }
+
+  .fotter-button {
+    position: fixed;
+    left: 0;
+    bottom: 8%;
+    right: 0;
+}

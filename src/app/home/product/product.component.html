@@ -1,0 +1,67 @@
+<ion-menu contentId="main-content">
+  <ion-header>
+    <ion-toolbar>
+      <ion-title>Sandesh Shingare</ion-title>
+    </ion-toolbar>
+  </ion-header>
+  <ion-content class="ion-padding">
+    <ion-item>
+      <ion-label>
+        Profile <ion-icon name="person-circle-outline" slot="end"></ion-icon>
+      </ion-label>
+    </ion-item>
+  </ion-content>
+</ion-menu>
+
+<div  id="main-content" class="ion-margin-bottom ion-padding-bottom ion-page"  >
+  <ion-header>
+    <ion-toolbar>
+      <ion-buttons slot="start">
+        <ion-menu-button></ion-menu-button>
+      </ion-buttons>
+      <ion-title>Products</ion-title>
+    </ion-toolbar>
+    <ion-toolbar class="">
+      <ion-searchbar
+        #search
+        (keyup)="searchProduct(search.value)"
+      ></ion-searchbar>
+    </ion-toolbar>
+    
+  </ion-header>
+
+  <ion-content >
+    <div>
+      <ion-grid>
+        <ion-row>
+          <ion-col
+            size="6"
+            *ngFor="let product of productList"
+            class="ion-no-padding"
+            (click)="itemClicked(product._id)"
+          >
+            <div>
+              <ion-card>
+                <img
+                  alt="Silhouette of mountains"
+                  [src]="product?.images[0]?.url"
+                  height="175px"
+                />
+                <ion-card-header>
+                  <ion-card-title>{{
+                    product?.name | slice : 0 : 25
+                  }}</ion-card-title>
+                  <!-- <ion-card-subtitle>Card Subtitle</ion-card-subtitle> -->
+                </ion-card-header>
+
+                <ion-card-content>
+                  {{ product?.description | slice : 0 : 20 }}
+                </ion-card-content>
+              </ion-card>
+            </div>
+          </ion-col>
+        </ion-row>
+      </ion-grid>
+    </div>
+  </ion-content>
+</div>

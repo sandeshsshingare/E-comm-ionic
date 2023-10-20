@@ -1,0 +1,11 @@
+{
+  "appId": "com.example.app",
+  "appName": "Ecommerce",
+  "bundledWebRuntime": false,
+  "webDir": "dist",
+  "plugins": {
+    "SplashScreen": {
+      "launchShowDuration": 0
+    }
+  }
+}

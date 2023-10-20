@@ -1,0 +1,98 @@
+<ion-header [translucent]="true">
+  <ion-toolbar>
+    <ion-back-button
+      defaultHref="/home/products"
+      slot="start"
+    ></ion-back-button>
+    <ion-title> {{ productData?.name }}</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <div *ngIf="loaded">
+    <ion-card>
+      <swiper-container pagination="true" pagination clickable="true">
+        <swiper-slide *ngFor="let image of productData?.images">
+          <img alt="Silhouette of mountains" [src]="image?.url"  />
+        </swiper-slide>
+      </swiper-container>
+      <ion-card-header class="ion-no-margin">
+        <ion-card-title>
+          <p>
+            {{ productData?.price | currency : "INR" }}
+          </p>
+        </ion-card-title>
+      </ion-card-header>
+
+      <ion-card-content>
+        {{ productData?.description }}
+      </ion-card-content>
+    </ion-card>
+  </div>
+
+  <div>
+    <ion-list *ngIf="!loaded">
+      <ion-list-header>
+        <ion-skeleton-text
+          [animated]="true"
+          style="width: 80px"
+        ></ion-skeleton-text>
+      </ion-list-header>
+      <ion-item>
+        <ion-thumbnail slot="start">
+          <ion-skeleton-text [animated]="true"></ion-skeleton-text>
+        </ion-thumbnail>
+        <ion-label>
+          <h3>
+            <ion-skeleton-text
+              [animated]="true"
+              style="width: 80%"
+            ></ion-skeleton-text>
+          </h3>
+          <p>
+            <ion-skeleton-text
+              [animated]="true"
+              style="width: 60%"
+            ></ion-skeleton-text>
+          </p>
+          <p>
+            <ion-skeleton-text
+              [animated]="true"
+              style="width: 30%"
+            ></ion-skeleton-text>
+          </p>
+        </ion-label>
+      </ion-item>
+    </ion-list>
+  </div>
+
+  <ion-footer class="fotter-button">
+    <ion-toolbar>
+      <ion-button
+      id="open-toast"
+      expand="block"
+      class="fotter-button"
+      (click)="addToCart()"
+      class="ion-padding-horizontal"
+      >Add to cart</ion-button
+    >
+    </ion-toolbar>
+  </ion-footer>
+<!-- 
+
+  <ion-footer *ngIf="loaded"
+    style="position: sticky; top: 50%; z-index: 100 ; margin-bottom: 50px;"
+    class="ion-padding"
+  >
+
+  
+
+    <ion-button
+      id="open-toast"
+      expand="block"
+      shape="round"
+      (click)="addToCart()"
+      >Add to cart</ion-button
+    >
+  </ion-footer> -->
+</ion-content>

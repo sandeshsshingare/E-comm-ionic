@@ -1,0 +1,117 @@
+
+
+
+<div class="ion-page" id="main-content" style="margin-bottom: 50px;">
+  <ion-header>
+    <ion-toolbar>
+      <ion-back-button slot="start" defaultHref="/setting/profile"></ion-back-button>
+      <ion-title>Setting</ion-title>
+    </ion-toolbar>
+   
+  </ion-header>
+
+  <ion-content class="ion-padding-top">
+    <ion-accordion-group>
+      <ion-accordion value="first">
+        <ion-item slot="header" color="light">
+          <ion-label>Update Profile Picture</ion-label>
+        </ion-item>
+        <div class="" slot="content">
+          <ion-card>
+            <ion-card-header>
+              <ion-card-title>Update profile picture</ion-card-title>
+              <!-- <ion-card-subtitle>If you deleted this account you won't be able to login again through this account.</ion-card-subtitle> -->
+            </ion-card-header>
+          
+            <ion-card-content>
+
+              <ion-input (change)="setFormData($event)" type="file"></ion-input>
+              <ion-button  expand="block" (click)="updateProfilePicture()" >Update <ion-icon name="pencil-outline" slot="end"></ion-icon></ion-button>
+            </ion-card-content>
+          </ion-card>
+        </div>
+      </ion-accordion>
+     
+      <ion-accordion value="second">
+        <ion-item slot="header" color="light">
+          <ion-label>Update Name, Email</ion-label>
+        </ion-item>
+        <div class=""  slot="content">
+          <ion-card>
+            <ion-card-header>
+              <ion-card-title>Update Name & Email</ion-card-title>
+              <!-- <ion-card-subtitle>If you deleted this account you won't be able to login again through this account.</ion-card-subtitle> -->
+            </ion-card-header>
+          
+            <ion-card-content>
+
+              <form *ngIf="this.profileInfo" #profileInfoForm ="ngForm" (ngSubmit)="updateNameEmail(profileInfoForm.value)">
+    
+                <ion-input label="Name" class="ion-margin-bottom" name="name" [(ngModel)]="profileInfo.name" required [errorText]="'Name is required field'" label-placement="floating" fill="solid" placeholder="Enter name"></ion-input>
+                <ion-input label="Email" label-placement="floating" required fill="solid" name="email" [(ngModel)]="profileInfo.email" [errorText]="'Email is required field'" placeholder="Enter email"></ion-input>
+                <ion-button expand="block" class="ion-padding" type="submit"  [disabled]="profileInfoForm.invalid" > Update <ion-icon name="pencil-outline" slot="end"></ion-icon> </ion-button>
+              </form>
+           
+            </ion-card-content>
+          </ion-card>
+
+
+        </div>
+      </ion-accordion>
+
+      <ion-accordion value="third">
+        <ion-item slot="header" color="light">
+          <ion-label>Change password</ion-label>
+        </ion-item>
+        <div class="" slot="content">
+
+          <ion-card>
+            <ion-card-header>
+              <ion-card-title>Change Account Password</ion-card-title>
+              <!-- <ion-card-subtitle>If you deleted this account you won't be able to login again through this account.</ion-card-subtitle> -->
+            </ion-card-header>
+          
+            <ion-card-content>
+
+              <form #changePasswordForm ="ngForm" (ngSubmit)="changePassword(changePasswordForm.value)">
+    
+                <ion-input label="Old password" class="ion-margin-bottom" name="old_password" ngModel required [errorText]="'Old password is required field'" label-placement="floating" fill="solid" placeholder="Enter name"></ion-input>
+                <ion-input label="Password" label-placement="floating" class="ion-margin-bottom" required fill="solid" name="password" ngModel [errorText]="'Password is required field'" placeholder="Enter password"></ion-input>
+                <ion-input label="Confirm password" label-placement="floating" required fill="solid" name="confirm_password" ngModel [errorText]="'Confirm password is required field'" placeholder="Confirm your password"></ion-input>
+    
+                <ion-button expand="block" class="ion-padding" type="submit" [disabled]="changePasswordForm.invalid"  >Change password </ion-button>
+              </form>
+         
+            </ion-card-content>
+          </ion-card>
+
+        </div>
+      </ion-accordion>
+
+      <ion-accordion value="fourth">
+        <ion-item slot="header" color="light">
+          <ion-label>Delete account</ion-label>
+        </ion-item>
+        <div class="" slot="content">
+          <ion-card>
+            <ion-card-header>
+              <ion-card-title>Delete Account</ion-card-title>
+              <ion-card-subtitle>If you deleted this account you won't be able to login again through this account.</ion-card-subtitle>
+            </ion-card-header>
+            <ion-alert
+            trigger="present-alert"
+            header="Are you sure?"
+            [buttons]="alertButtons"
+            (didDismiss)="setResult($event)"
+          ></ion-alert>
+            <ion-card-content>
+              <ion-button color="danger" [id]="'present-alert'" expand="block"  >Delete</ion-button>
+            </ion-card-content>
+          </ion-card>
+        </div>
+      </ion-accordion>
+
+    </ion-accordion-group>
+    
+  </ion-content>
+</div>

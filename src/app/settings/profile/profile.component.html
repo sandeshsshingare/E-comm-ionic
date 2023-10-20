@@ -1,0 +1,83 @@
+<ion-header [translucent]="true">
+  <ion-toolbar>
+    <ion-back-button
+      defaultHref="/home/products"
+      slot="start"
+    ></ion-back-button>
+    <ion-title>My profile</ion-title>
+  </ion-toolbar>
+</ion-header>
+<ion-content>
+  <div class="ion-padding">
+    <ion-row>
+      <ion-col size="3">
+        <img
+          style="border-radius: 50%; margin-top: 30%"
+          height="70%"
+          [src]="profileData?.picture.url"
+        />
+      </ion-col>
+      <ion-col>
+        <h1>{{ profileData?.name }}</h1>
+        <h4>{{ profileData?.email }}</h4>
+      </ion-col>
+    </ion-row>
+  </div>
+
+  <div class="ion-no-padding">
+    <ion-item [button]="true" inset="true">
+      <ion-label size="12">
+        <h2>My orders</h2>
+        <p>Already have 13 orders</p>
+      </ion-label>
+      <ion-button fill="clear"
+        ><ion-icon name="chevron-forward-outline"></ion-icon
+      ></ion-button>
+    </ion-item>
+    <ion-item routerLink="/setting/address">
+      <ion-label size="12">
+        <h2>Shipping address</h2>
+        <p>{{profileData?.address.length}} addresses</p>
+      </ion-label>
+      <ion-button fill="clear"
+        ><ion-icon name="chevron-forward-outline"></ion-icon
+      ></ion-button>
+    </ion-item>
+    <ion-item>
+      <ion-label size="12">
+        <h2>Payment method</h2>
+        <p>Visa **34</p>
+      </ion-label>
+      <ion-button fill="clear"
+        ><ion-icon name="chevron-forward-outline"></ion-icon
+      ></ion-button>
+    </ion-item>
+    <ion-item>
+      <ion-label size="12">
+        <h2>Promocodes</h2>
+        <p>You have special promocodes</p>
+      </ion-label>
+      <ion-button fill="clear"
+        ><ion-icon name="chevron-forward-outline"></ion-icon
+      ></ion-button>
+    </ion-item>
+    <ion-item>
+      <ion-label size="12">
+        <h2>My reviews</h2>
+        <p>Received for 4 products</p>
+      </ion-label>
+      <ion-button fill="clear"
+        ><ion-icon name="chevron-forward-outline"></ion-icon
+      ></ion-button>
+    </ion-item>
+    <ion-item routerLink="/setting/general-setting">
+      <ion-label size="12">
+        <h2>Settings</h2>
+        <p>Notification, password</p>
+      </ion-label>
+      <ion-button fill="clear"
+        ><ion-icon name="chevron-forward-outline"></ion-icon
+      ></ion-button>
+    </ion-item>
+  </div>
+</ion-content>

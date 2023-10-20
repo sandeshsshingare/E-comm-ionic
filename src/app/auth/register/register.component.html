@@ -1,0 +1,78 @@
+<ion-header [translucent]="true">
+  <ion-toolbar>
+    <ion-back-button defaultHref="/auth/login" slot="start"></ion-back-button>
+    <ion-title>Register</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content class="ion-padding">
+  <form
+    #registerForm="ngForm"
+    class=""
+    (ngSubmit)="registerFun(registerForm.value)"
+  >
+    <div class="ion-padding-top">
+      <ion-input
+        label="Email"
+        label-placement="floating"
+        fill="outline"
+        name="email"
+        [autofocus]="true"
+        class=""
+        ngModel
+        placeholder="Enter email"
+        required
+      [clearInput]="true"
+      ></ion-input>
+    </div>
+
+    <div class="ion-padding-top">
+      <ion-input
+        label="Password"
+        label-placement="floating"
+        fill="outline"
+        name="password"
+        class=""
+        ngModel
+        placeholder="Enter password"
+        required
+            [clearInput]="true"            
+      ></ion-input>
+    </div>
+
+    <div class="ion-padding-top">
+      <ion-input
+        label="Confirm Password"
+        label-placement="floating"
+        fill="outline"
+        name="confirm_password"
+        class=""
+        ngModel
+        placeholder="Confirm your password"
+        required
+          [clearInput]="true"
+      ></ion-input>
+    </div>
+
+    <div class="ion-padding-top">
+      <ion-button
+        expand="block"
+        [disabled]="registerForm.invalid"
+        type="submit"
+        class="ion-margin-top ion-padding-top"
+        color="secondary"
+        type="submit"
+      >
+        Create account
+        <ion-icon name="person-circle-outline" slot="end"></ion-icon>
+      </ion-button>
+
+      <ion-button
+        fill="clear"
+        [routerLink]="'/auth/login'"
+        class="ion-margin-top"
+        >Already have account ?</ion-button
+      >
+    </div>
+  </form>
+</ion-content>
